@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://p452yov6dis"]
+
+[ext_resource type="Script" uid="uid://drq64xdfvobys" path="res://MainMenu.cs" id="1_06t4h"]
+[ext_resource type="Texture2D" uid="uid://bynaqdioiuiyu" path="res://assets/menu.png" id="2_7vrkn"]
+[ext_resource type="AudioStream" uid="uid://h4mtbrhh2mil" path="res://sound.mp3" id="3_fu7sn"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 22.0
+offset_top = 39.0
+offset_right = 322.0
+offset_bottom = 439.0
+script = ExtResource("1_06t4h")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -5.0
+offset_right = 298.0
+offset_bottom = 395.0
+texture = ExtResource("2_7vrkn")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 75
+alignment = 1
+
+[node name="Label" type="Label" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+text = "BLAST HOCKEY!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SingleplayerButton" type="Button" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+text = "SinglePlayer"
+
+[node name="MultiplayerButton" type="Button" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "MultiPlayer
+(Coming Soon)"
+
+[node name="ExitButton" type="Button" parent="TextureRect/VBoxContainer"]
+layout_mode = 2
+text = "Exit Game"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fu7sn")
+volume_db = 1.01
+autoplay = true
+
+[connection signal="pressed" from="TextureRect/VBoxContainer/SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="TextureRect/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

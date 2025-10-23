@@ -1,0 +1,286 @@
+[gd_scene load_steps=28 format=3 uid="uid://b40jebj2dnxvu"]
+
+[ext_resource type="Texture2D" uid="uid://dsgb378mn8cwt" path="res://assets/tablero2.jpg" id="1_l2eg4"]
+[ext_resource type="Script" uid="uid://e8htdkc4a56f" path="res://Table.cs" id="2_hnufa"]
+[ext_resource type="Script" uid="uid://cvk81afqy12d7" path="res://Puck.cs" id="3_mc3oi"]
+[ext_resource type="Script" uid="uid://cdgtxpl7gc258" path="res://Player1.cs" id="5_arcr0"]
+[ext_resource type="Texture2D" uid="uid://ca6mfnjgmwo4j" path="res://assets/puck2.png" id="5_au3f2"]
+[ext_resource type="Texture2D" uid="uid://dmn80wbnlfa6u" path="res://assets/player1.png" id="5_c7tvq"]
+[ext_resource type="Texture2D" uid="uid://cvd8cvup5rdck" path="res://assets/player2.png" id="6_arcr0"]
+[ext_resource type="Texture2D" uid="uid://c6q6pkvpx4iyt" path="res://assets/porteria.png" id="7_au3f2"]
+[ext_resource type="Script" uid="uid://d5ok1pce0jny" path="res://Player2.cs" id="7_v6585"]
+[ext_resource type="Script" uid="uid://bheemf46xjsja" path="res://GameManager.cs" id="10_arcr0"]
+[ext_resource type="AudioStream" uid="uid://h4mtbrhh2mil" path="res://sound.mp3" id="11_au3f2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arcr0"]
+size = Vector2(297, 5)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_arcr0"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kfhxj"]
+radius = 19.026299
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c7tvq"]
+radius = 29.274563
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_arcr0"]
+radius = 28.071337
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_au3f2"]
+size = Vector2(12, 482)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_c7tvq"]
+a = Vector2(9, -3)
+b = Vector2(18, -12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6585"]
+size = Vector2(10, 478)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_arcr0"]
+a = Vector2(-8, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lusle"]
+size = Vector2(299, 10)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_au3f2"]
+a = Vector2(11, -1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mq10e"]
+size = Vector2(298, 8)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_v6585"]
+a = Vector2(3, 34)
+b = Vector2(-16, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tu2jg"]
+size = Vector2(142, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kgtke"]
+size = Vector2(142, 11)
+
+[sub_resource type="SystemFont" id="SystemFont_arcr0"]
+
+[node name="BlastHockey" type="Node2D"]
+y_sort_enabled = true
+
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("_gameOverLabel", "_menuButton", "_puck", "_player1", "_player2", "_scoreLabelP1", "_scoreLabelP2", "_countdownLabel")]
+position = Vector2(-1, 0)
+script = ExtResource("10_arcr0")
+_gameOverLabel = NodePath("../CanvasLayer/GameOverLabel")
+_menuButton = NodePath("../CanvasLayer/MenuButton")
+_puck = NodePath("../Puck")
+_player1 = NodePath("../Player1")
+_player2 = NodePath("../Player2")
+_scoreLabelP1 = NodePath("../CanvasLayer/ScoreLabelP1")
+_scoreLabelP2 = NodePath("../CanvasLayer/ScoreLabelP2")
+_countdownLabel = NodePath("../CanvasLayer/CountdownLabel")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GameManager"]
+stream = ExtResource("11_au3f2")
+volume_db = 1.0
+autoplay = true
+
+[node name="MidfieldWall" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MidfieldWall"]
+position = Vector2(161.5, 237.5)
+shape = SubResource("RectangleShape2D_arcr0")
+
+[node name="Table" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(161, 236)
+texture = ExtResource("1_l2eg4")
+script = ExtResource("2_hnufa")
+
+[node name="Puck" type="RigidBody2D" parent="."]
+physics_interpolation_mode = 2
+visible = false
+position = Vector2(163, 241)
+collision_layer = 2
+physics_material_override = SubResource("PhysicsMaterial_arcr0")
+script = ExtResource("3_mc3oi")
+
+[node name="Sprite2D" type="Sprite2D" parent="Puck"]
+physics_interpolation_mode = 2
+position = Vector2(1.5258789e-05, 0)
+scale = Vector2(0.169606, 0.158915)
+texture = ExtResource("5_au3f2")
+offset = Vector2(0, 6.2926025)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puck"]
+y_sort_enabled = true
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_kfhxj")
+
+[node name="Player1" type="RigidBody2D" parent="."]
+position = Vector2(164, 96)
+collision_mask = 6
+script = ExtResource("5_arcr0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player1"]
+position = Vector2(-2, 10)
+scale = Vector2(0.242616, 0.233333)
+texture = ExtResource("5_c7tvq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1"]
+position = Vector2(-2, 10)
+shape = SubResource("CircleShape2D_c7tvq")
+
+[node name="Player2" type="RigidBody2D" parent="."]
+position = Vector2(158, 345)
+collision_mask = 6
+script = ExtResource("7_v6585")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player2"]
+position = Vector2(5, 28)
+scale = Vector2(0.245851, 0.228764)
+texture = ExtResource("6_arcr0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2"]
+position = Vector2(5, 29)
+shape = SubResource("CircleShape2D_arcr0")
+
+[node name="Walls" type="Node2D" parent="."]
+position = Vector2(0, -6)
+
+[node name="leftwall" type="StaticBody2D" parent="Walls"]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/leftwall"]
+position = Vector2(7, 241)
+shape = SubResource("RectangleShape2D_au3f2")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/leftwall"]
+position = Vector2(2, 23)
+shape = SubResource("SegmentShape2D_c7tvq")
+
+[node name="rightwall" type="StaticBody2D" parent="Walls"]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/rightwall"]
+position = Vector2(316, 241)
+shape = SubResource("RectangleShape2D_v6585")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/rightwall"]
+position = Vector2(312, 9)
+shape = SubResource("SegmentShape2D_arcr0")
+
+[node name="topwall" type="StaticBody2D" parent="Walls"]
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/topwall"]
+position = Vector2(161, 7)
+shape = SubResource("RectangleShape2D_lusle")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/topwall"]
+position = Vector2(303, 467)
+shape = SubResource("SegmentShape2D_au3f2")
+
+[node name="bottomwall" type="StaticBody2D" parent="Walls"]
+position = Vector2(-3, 2)
+collision_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/bottomwall"]
+position = Vector2(162, 477)
+shape = SubResource("RectangleShape2D_mq10e")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/bottomwall"]
+position = Vector2(24, 443)
+shape = SubResource("SegmentShape2D_v6585")
+
+[node name="Goals" type="Node2D" parent="."]
+
+[node name="player1Goal" type="StaticBody2D" parent="Goals" groups=["goal_p1"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="Goals/player1Goal"]
+position = Vector2(162.00002, 4)
+scale = Vector2(0.27264, 0.291667)
+texture = ExtResource("7_au3f2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/player1Goal"]
+position = Vector2(162, 4)
+shape = SubResource("RectangleShape2D_tu2jg")
+
+[node name="player2Goal" type="StaticBody2D" parent="Goals" groups=["goal_p2"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="Goals/player2Goal"]
+position = Vector2(162.00002, 470)
+scale = Vector2(0.273603, 0.229167)
+texture = ExtResource("7_au3f2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goals/player2Goal"]
+position = Vector2(162, 470)
+shape = SubResource("RectangleShape2D_kgtke")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabelP1" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 173.0
+offset_top = -24.0
+offset_right = 187.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5707964
+theme_override_font_sizes/font_size = 18
+text = "0"
+uppercase = true
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 349.0
+offset_top = 232.0
+offset_right = 359.0
+offset_bottom = 255.0
+rotation = 1.5707964
+scale = Vector2(1.5, 1.5)
+text = "-"
+
+[node name="ScoreLabelP2" type="Label" parent="CanvasLayer"]
+offset_left = 342.0
+offset_top = 246.0
+offset_right = 356.0
+offset_bottom = 272.0
+rotation = 1.5707964
+theme_override_font_sizes/font_size = 18
+text = "0"
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = 88.0
+offset_top = 190.0
+offset_right = 238.0
+offset_bottom = 285.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_arcr0")
+theme_override_font_sizes/font_size = 69
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer"]
+visible = false
+offset_left = -38.0
+offset_top = 84.0
+offset_right = 358.0
+offset_bottom = 259.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 38
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuButton" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 94.0
+offset_top = 211.0
+offset_right = 244.0
+offset_bottom = 261.0
+text = "Main Menu "
