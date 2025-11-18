@@ -25,19 +25,27 @@ public partial class Puck : RigidBody2D
 
     private void OnPuckBodyEntered(Node body)
     {
- 
-        if (_isFrozen) return;
 
-        if (body.IsInGroup("goal_p2"))
+        if (Multiplayer.MultiplayerPeer != null && !Multiplayer.IsServer())
         {
-            GD.Print("Puck ha tocado goal_p2");           
-            EmitSignal(SignalName.GoalScoredP1);
+            return;
         }
 
+        // Verificamos si está congelado
+        if (_isFrozen)
+        {
+            return;
+        }
 
+        // Verificamos los grupos
+        if (body.IsInGroup("goal_p2"))
+        {
+            GD.Print("¡GOL DETECTADO en portería P2!");
+            EmitSignal(SignalName.GoalScoredP1);
+        }
         else if (body.IsInGroup("goal_p1"))
         {
-            GD.Print("Puck ha tocado goal_p1");
+            GD.Print("¡GOL DETECTADO en portería P1!");
             EmitSignal(SignalName.GoalScoredP2);
         }
 

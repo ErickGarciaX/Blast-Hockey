@@ -45,9 +45,7 @@ text = "SinglePlayer"
 
 [node name="MultiplayerButton" type="Button" parent="TextureRect/VBoxContainer"]
 layout_mode = 2
-disabled = true
-text = "MultiPlayer
-(Coming Soon)"
+text = "MultiPlayer"
 
 [node name="ExitButton" type="Button" parent="TextureRect/VBoxContainer"]
 layout_mode = 2

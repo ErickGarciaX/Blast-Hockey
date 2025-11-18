@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://b40jebj2dnxvu"]
+[gd_scene load_steps=31 format=3 uid="uid://b40jebj2dnxvu"]
 
 [ext_resource type="Texture2D" uid="uid://dsgb378mn8cwt" path="res://assets/tablero2.jpg" id="1_l2eg4"]
 [ext_resource type="Script" uid="uid://e8htdkc4a56f" path="res://Table.cs" id="2_hnufa"]
@@ -22,11 +22,44 @@ bounce = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_kfhxj"]
 radius = 19.026299
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_lusle"]
+properties/0/path = NodePath(".:linear_velocity")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_c7tvq"]
 radius = 29.274563
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_au3f2"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_arcr0"]
 radius = 28.071337
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_v6585"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_au3f2"]
 size = Vector2(12, 482)
@@ -97,7 +130,6 @@ script = ExtResource("2_hnufa")
 
 [node name="Puck" type="RigidBody2D" parent="."]
 physics_interpolation_mode = 2
-visible = false
 position = Vector2(163, 241)
 collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_arcr0")
@@ -115,6 +147,9 @@ y_sort_enabled = true
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_kfhxj")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Puck"]
+replication_config = SubResource("SceneReplicationConfig_lusle")
+
 [node name="Player1" type="RigidBody2D" parent="."]
 position = Vector2(164, 96)
 collision_mask = 6
@@ -129,6 +164,9 @@ texture = ExtResource("5_c7tvq")
 position = Vector2(-2, 10)
 shape = SubResource("CircleShape2D_c7tvq")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Player1"]
+replication_config = SubResource("SceneReplicationConfig_au3f2")
+
 [node name="Player2" type="RigidBody2D" parent="."]
 position = Vector2(158, 345)
 collision_mask = 6
@@ -142,6 +180,9 @@ texture = ExtResource("6_arcr0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player2"]
 position = Vector2(5, 29)
 shape = SubResource("CircleShape2D_arcr0")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Player2"]
+replication_config = SubResource("SceneReplicationConfig_v6585")
 
 [node name="Walls" type="Node2D" parent="."]
 position = Vector2(0, -6)

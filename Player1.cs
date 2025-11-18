@@ -9,8 +9,10 @@ public partial class Player1 : RigidBody2D
 
 
     private bool _isFrozen = false; 
-    private bool _isTeleporting = false; 
+    private bool _isTeleporting = false;
 
+
+    private bool IsLocalMode => Multiplayer.MultiplayerPeer == null;
 
 
     public override void _Ready()
@@ -21,6 +23,9 @@ public partial class Player1 : RigidBody2D
 
     public override void _PhysicsProcess(double delta)
     {
+
+        if (!IsLocalMode && !IsMultiplayerAuthority())
+            return;
 
         if (_isFrozen)
         {
