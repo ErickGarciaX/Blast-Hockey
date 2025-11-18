@@ -1,2 +1,2 @@
 # Blast-Hockey
-A hockey game 👍
+A hockey multiplayer game / try it👍
